@@ -1,0 +1,27 @@
+.inventory-list-container {
+    padding: 20px;
+  }
+  
+  .list-actions {
+    margin-bottom: 20px;
+  }
+  
+  .filter-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .supplier-link {
+    cursor: pointer;
+    color: #3f51b5;
+    text-decoration: underline;
+  }
+  
+  .low-stock {
+    color: #f44336;
+    font-weight: bold;
+  }

@@ -1,0 +1,64 @@
+<mat-drawer-container class="dashboard-container">
+  <mat-drawer mode="side" opened class="sidebar">
+    <div class="sidebar-header">
+      <h2>Retail Management</h2>
+    </div>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon> Dashboard
+      </a>
+
+      <!-- Manager-->
+      <ng-container *ngIf="isManager">
+        <a mat-list-item routerLink="/inventory" routerLinkActive="active">
+          <mat-icon>inventory</mat-icon> Inventory
+        </a>
+      </ng-container>
+      
+      <ng-container *ngIf="isManager">
+        <a mat-list-item routerLink="/supplier" routerLinkActive="active">
+          <mat-icon>business</mat-icon> Suppliers
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="isManager">
+        <a mat-list-item routerLink="/sales" routerLinkActive="active">
+          <mat-icon>shopping_cart</mat-icon> Sales
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="isManager">
+        <a mat-list-item routerLink="/sales/report" routerLinkActive="active">
+          <mat-icon>assessment</mat-icon> Sale Reports
+        </a>
+      </ng-container>
+
+
+      <!-- Supplier | User-->
+      <ng-container *ngIf="isSupplier && currentUser?.supplierId">
+        <a mat-list-item [routerLink]="['/supplier/view', currentUser?.supplierId]" routerLinkActive="active">
+          <mat-icon>business</mat-icon> My Profile
+        </a>
+        <!-- <a mat-list-item [routerLink]="['/supplier/edit', currentUser?.supplierId]" routerLinkActive="active">
+          <mat-icon>edit</mat-icon> Edit Profile
+        </a> -->
+      </ng-container>
+
+      <a mat-list-item (click)="logout()" routerLink="/login">
+        <mat-icon>exit_to_app</mat-icon> Logout
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <mat-toolbar color="primary">
+      <span class="toolbar-spacer"></span>
+      <span *ngIf="currentUser">Welcome, {{currentUser.username}}</span>
+    </mat-toolbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

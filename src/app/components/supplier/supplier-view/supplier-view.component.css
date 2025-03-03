@@ -1,0 +1,122 @@
+.supplier-view-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.action-header {
+  margin-bottom: 20px;
+}
+
+.supplier-card {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.supplier-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.info-section {
+  margin: 20px 0;
+}
+
+.info-section h3, .section-title {
+  color: #3f51b5;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.info-label {
+  width: 150px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.info-value {
+  flex: 1;
+}
+
+a {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.loading-container p {
+  margin-top: 20px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.error-card {
+  background-color: #fdf2f2;
+  margin-top: 20px;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  color: #d32f2f;
+}
+
+.error-message mat-icon {
+  margin-right: 10px;
+}
+
+.secondary-text {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+}
+
+mat-divider {
+  margin: 15px 0;
+}
+
+/* Form Styling */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.section-title {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .info-row {
+    flex-direction: column;
+  }
+  
+  .info-label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

@@ -1,0 +1,55 @@
+<mat-card class="supplier-edit-card">
+  <mat-card-title>Edit Supplier</mat-card-title>
+
+  <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" *ngIf="supplier">
+    <input type="hidden" formControlName="id">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="supplierForm.controls['name'].hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contact Person</mat-label>
+      <input matInput formControlName="contactPerson">
+      <mat-error *ngIf="supplierForm.controls['contactPerson'].hasError('required')">
+        Contact person is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="supplierForm.controls['email'].hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="supplierForm.controls['email'].hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone">
+      <mat-error *ngIf="supplierForm.controls['phone'].hasError('required')">
+        Phone is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <textarea matInput formControlName="address"></textarea>
+      <mat-error *ngIf="supplierForm.controls['address'].hasError('required')">
+        Address is required
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-stroked-button color="warn" type="button" (click)="cancel()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!supplierForm.valid">Save</button>
+    </div>
+  </form>
+</mat-card>

@@ -1,0 +1,26 @@
+<div class="sales-report-container">
+  <mat-card class="report-card">
+  <h2>Sales Report</h2>
+
+  <div class="export-buttons">
+    <button mat-raised-button color="warn" (click)="generateExcel('Daily')">
+      <mat-icon>calendar_today</mat-icon>  Export Daily Report
+    </button>
+    <button mat-raised-button color="accent" (click)="generateExcel('Weekly')">
+      <mat-icon>calendar_today</mat-icon>  Export Weekly Report
+    </button>
+    <button mat-raised-button color="primary" (click)="generateExcel('Monthly')">
+      <mat-icon>calendar_today</mat-icon>  Export Monthly Report
+    </button>
+  </div>
+
+
+  <div class="summary-card" *ngIf="dataSource.data.length > 0">
+    <h3>Summary</h3>
+    <p><strong>Total Sales:</strong> {{getTotalSales() | currency}}</p>
+    <br>
+    <p><strong>Total Quantity:</strong> {{getTotalQuantity()}}</p>
+    <br>
+  </div>
+</mat-card>
+</div>
