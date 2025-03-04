@@ -43,11 +43,11 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let supplier">
-          <button mat-icon-button color="primary" [routerLink]="['/supplier/view', supplier.id]">
+          <button mat-icon-button color="primary" [routerLink]="['/supplier',  supplier.id, 'view']">
             <mat-icon>visibility</mat-icon>
           </button>
 
-          <button mat-icon-button color="accent" [routerLink]="['/supplier/edit', supplier.id]">
+          <button mat-icon-button color="accent" [routerLink]="['/supplier', supplier.id, 'edit']">
             <mat-icon>edit</mat-icon>
           </button>
         </td>

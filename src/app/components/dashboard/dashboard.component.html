@@ -37,12 +37,12 @@
 
       <!-- Supplier | User-->
       <ng-container *ngIf="isSupplier && currentUser?.supplierId">
-        <a mat-list-item [routerLink]="['/supplier/view', currentUser?.supplierId]" routerLinkActive="active">
+        <a mat-list-item [routerLink]="['/supplier', currentUser?.supplierId, 'view']" routerLinkActive="active">
           <mat-icon>business</mat-icon> My Profile
         </a>
-        <!-- <a mat-list-item [routerLink]="['/supplier/edit', currentUser?.supplierId]" routerLinkActive="active">
+        <a mat-list-item [routerLink]="['/supplier', currentUser?.supplierId, 'edit']" routerLinkActive="active">
           <mat-icon>edit</mat-icon> Edit Profile
-        </a> -->
+        </a>
       </ng-container>
 
       <a mat-list-item (click)="logout()" routerLink="/login">

@@ -14,7 +14,7 @@ export class AuthService {
   private readonly USER_STORAGE_KEY = 'current_user';
 
   constructor(private http: HttpClient) {
-    const storedUser = localStorage.getItem('currentUser');
+    const storedUser = localStorage.getItem(this.USER_STORAGE_KEY);
     this.currentUserSubject = new BehaviorSubject<User | null>(
       storedUser ? JSON.parse(storedUser) : null
     );
@@ -25,23 +25,23 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  private generateRandomSupplierId(): number {
+    return Math.floor(1000 + Math.random() * 9000);
+  }
+
   register(userData: Partial<User>): Observable<User> {
-    
     return this.http.get<User[]>(this.apiUrl).pipe(
       map(users => {
-        const newId = Math.max(...users.map(u => u.id)) + 1;
+        const newId = users.length ? Math.max(...users.map(u => u.id)) + 1 : 1;
         const newUser: User = {
           id: newId,
           username: userData.username!,
           password: userData.password!,
           role: userData.role!,
-          supplierId: userData.role === 'supplier' ? newId : 0
+          supplierId: userData.role === 'supplier' ? this.generateRandomSupplierId() : 0
         };
-        
-        // Add to users array
-        users.push(newUser);
-        // Update the in-memory database
-        this.http.post(this.apiUrl, newUser).subscribe();
+
+        this.http.post<User>(this.apiUrl, newUser).subscribe();
         return newUser;
       })
     );
@@ -51,12 +51,12 @@ export class AuthService {
     return this.http.get<User[]>(this.apiUrl).pipe(
       map(users => {
         const user = users.find(u => u.username === username && u.password === password);
-        if (user) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
-        }
-        return null;
+        if (!user) return null;
+
+        localStorage.setItem(this.USER_STORAGE_KEY, JSON.stringify(user));
+        this.currentUserSubject.next(user);
+
+        return user;
       }),
       catchError(error => {
         console.error('Login error:', error);
@@ -65,30 +65,21 @@ export class AuthService {
     );
   }
 
-
   updateCurrentUser(updatedUser: User): void {
-    // Update in the service
-    this.http.put(`${this.apiUrl}`, updatedUser).pipe(
+    this.http.put(`${this.apiUrl}/${updatedUser.id}`, updatedUser).pipe(
       tap(() => {
-        // Update in local storage
         localStorage.setItem(this.USER_STORAGE_KEY, JSON.stringify(updatedUser));
-        // Update the behavior subject
         this.currentUserSubject.next(updatedUser);
-        console.log('User updated successfully:', updatedUser);
       }),
       catchError(error => {
         console.error('Error updating user:', error);
-        // Still update local storage and subject even if HTTP request fails
-        // This ensures UI remains consistent
-        localStorage.setItem(this.USER_STORAGE_KEY, JSON.stringify(updatedUser));
-        this.currentUserSubject.next(updatedUser);
-        return of(updatedUser);
+        return of(null);
       })
     ).subscribe();
   }
 
   logout(): void {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem(this.USER_STORAGE_KEY);
     this.currentUserSubject.next(null);
   }
 
@@ -96,5 +87,4 @@ export class AuthService {
     const user = this.currentUserValue;
     return !!user && roles.includes(user.role);
   }
-  
 }

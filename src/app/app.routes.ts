@@ -22,8 +22,8 @@ export const routes: Routes = [
     path: 'supplier',
     children: [
       { path: '', component: SupplierListComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager'] } },
-      { path: 'view/:id', component: SupplierViewComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager', 'supplier'] } },
-      { path: 'edit/:id', component: SupplierEditComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager', 'supplier'] } }
+      { path: ':id/view', component: SupplierViewComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager', 'supplier'] } },
+      { path: ':id/edit', component: SupplierEditComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager', 'supplier'] } }
     ]
   },
   {
@@ -38,8 +38,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: InventoryListComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager'] } },
       { path: 'create', component: InventoryCreateComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager'] } },
-      { path: 'edit/:id', component: InventoryEditComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager'] } },
-      { path: 'delete/:id', component: InventoryListComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager'] } }
+      { path: ':id/edit', component: InventoryEditComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager'] } },
+      { path: ':id/delete', component: InventoryListComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['manager'] } }
     ]
   }
 ];

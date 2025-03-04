@@ -101,9 +101,8 @@ export class SupplierViewComponent implements OnInit {
   checkEditPermissions() {
     const currentUser = this.authService.currentUserValue;
     if (currentUser) {
-      this.canEdit = currentUser.role === 'manager' || 
-                     (currentUser.role === 'supplier' && 
-                      currentUser.supplierId === this.supplier?.id);
+      this.canEdit = (currentUser.role === 'supplier' &&
+        currentUser.supplierId === this.supplier?.id);
     }
   }
 

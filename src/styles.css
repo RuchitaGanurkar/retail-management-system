@@ -1,10 +1,10 @@
-/* styles.css */
+
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 html, body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 .mat-typography {
@@ -12,25 +12,21 @@ html, body {
   letter-spacing: normal;
 }
 
-/* General table styles */
 .table-container {
   margin: 20px 0;
   overflow: auto;
 }
 
-/* Form styles */
 .form-container {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
 }
 
-/* Card styles */
 .mat-mdc-card {
   margin: 20px;
 }
 
-/* Button spacing */
 .action-buttons {
   display: flex;
   gap: 8px;

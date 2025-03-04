@@ -35,19 +35,24 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.currentUser = this.authService.currentUserValue;
-    
-    if (!this.currentUser) {
-      this.router.navigate(['/login']);
-      return;
-    }
-    
-    console.log('Current user in dashboard:', this.currentUser);
-    this.isManager = this.authService.hasRole(['manager']);
-    this.isSupplier = this.authService.hasRole(['supplier']);
-    
-    console.log('Is manager:', this.isManager);
-    console.log('Is supplier:', this.isSupplier);
+    this.authService.currentUser.subscribe(user => {
+      if (!user) {
+        this.router.navigate(['/login']);
+        return;
+      }
+
+      this.currentUser = user;
+      this.isManager = user.role === 'manager';
+      this.isSupplier = user.role === 'supplier';
+
+      console.log('Current user in dashboard:', this.currentUser);
+      console.log('Is manager:', this.isManager);
+      console.log('Is supplier:', this.isSupplier);
+
+      if (this.isSupplier || this.isManager) {
+        this.router.navigate([`/dashboard`]);
+      }
+    });
   }
 
   logout(): void {

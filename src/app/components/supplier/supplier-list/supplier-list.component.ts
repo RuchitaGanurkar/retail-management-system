@@ -9,11 +9,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-supplier-list',
-  imports: [CommonModule, RouterLink ,MatPaginatorModule, MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterModule ,MatPaginatorModule, MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
   templateUrl: './supplier-list.component.html',
   styleUrls: ['./supplier-list.component.css']
 })
@@ -21,7 +21,7 @@ export class SupplierListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'contactPerson', 'email', 'phone', 'actions'];
   suppliers: Supplier[] = [];
 
-  constructor(private supplierService: SupplierService) {}
+  constructor(private supplierService: SupplierService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadSuppliers();
@@ -46,9 +46,13 @@ export class SupplierListComponent implements OnInit {
 
   viewSupplier(id: number): void {
     console.log('View Supplier:', id);
+
+    this.router.navigate(['/suppliers', id, 'view']);
   }
 
   editSupplier(id: number): void {
     console.log('Edit Supplier:', id);
+
+    this.router.navigate(['/suppliers', id, 'edit']);
   }
 }

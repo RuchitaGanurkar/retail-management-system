@@ -85,7 +85,7 @@ export class InventoryCreateComponent implements OnInit {
           });
   
           
-          // Reload inventory after adding the product
+          // after adding the product
           this.inventoryService.getProducts().subscribe((updatedProducts) => {
             console.log('Updated Inventory:', updatedProducts);
             this.router.navigate(['/inventory']);

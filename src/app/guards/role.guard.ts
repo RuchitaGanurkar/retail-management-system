@@ -15,27 +15,27 @@ export class RoleGuard implements CanActivate {
     const roles = route.data['roles'] as string[];
     const currentUser = this.authService.currentUserValue;
     
-    console.log('Role Guard - Route path:', state.url);
-    console.log('Role Guard - Required roles:', roles);
-    console.log('Role Guard - Current user:', currentUser);
+    console.log('Route path:', state.url);
+    console.log('Required role:', roles);
+    console.log('Current user role:', currentUser);
     
     if (!currentUser) {
-      console.warn('Role Guard - No current user, redirecting to login');
+      console.warn('No current user, redirecting to login');
       this.router.navigate(['/register']);
       return false;
     }
     
-    console.log('Role Guard - User role:', currentUser.role);
+    console.log('User role:', currentUser.role);
     const hasRequiredRole = this.authService.hasRole(roles);
-    console.log('Role Guard - Has required role:', hasRequiredRole);
+    console.log('Required role:', hasRequiredRole);
     
     if (hasRequiredRole) {
-      console.log('Role Guard - Access granted');
+      console.log('Access granted');
       return true;
     }
 
     // role not authorized
-    console.warn('Role Guard - Access denied, redirecting to dashboard');
+    console.warn('Access denied, redirecting to dashboard');
     this.router.navigate(['/dashboard']);
     return false;
   }
