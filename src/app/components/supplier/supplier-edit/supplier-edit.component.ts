@@ -8,10 +8,11 @@ import { SupplierService } from '../../../services/supplier.service';
 import { AuthService } from '../../../services/auth.service';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatCardContent, MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-supplier-edit',
-  imports: [MatCardModule ,CommonModule, ReactiveFormsModule, FormsModule, MatFormField, MatError, MatLabel ],
+  imports: [ MatInputModule , MatCardModule ,CommonModule, ReactiveFormsModule, FormsModule, MatFormField, MatError, MatLabel ],
   standalone: true,
   templateUrl: './supplier-edit.component.html',
   styleUrls: ['./supplier-edit.component.css']
@@ -19,7 +20,7 @@ import { MatCardContent, MatCardModule } from '@angular/material/card';
 export class SupplierEditComponent implements OnInit {
   supplierForm!: FormGroup;
   supplier!: Supplier;
-  isManager: boolean = false;
+  isSupplier: boolean = false;
   isOwner: boolean = false;
 
   constructor(
@@ -32,7 +33,7 @@ export class SupplierEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isManager = this.authService.hasRole(['manager']);
+    this.isSupplier = this.authService.hasRole(['supplier']);
     this.initForm();
     this.getSupplier();
 
@@ -51,9 +52,8 @@ export class SupplierEditComponent implements OnInit {
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]]
     });
-
-    // Disable name field for suppliers (only managers can change supplier names)
-    if (!this.isManager) {
+  
+    if (!this.isSupplier) {
       this.supplierForm.get('name')?.disable();
     }
   }
@@ -73,7 +73,7 @@ export class SupplierEditComponent implements OnInit {
         ...this.supplier,
         ...this.supplierForm.value,
         // Ensure name is included if disabled
-        name: this.isManager ? this.supplierForm.get('name')?.value : this.supplier.name
+        name: this.isSupplier ? this.supplierForm.get('name')?.value : this.supplier.name
       };
 
       this.supplierService.updateSupplier(updatedSupplier)
@@ -82,6 +82,9 @@ export class SupplierEditComponent implements OnInit {
             this.snackBar.open('Supplier updated successfully', 'Close', {
               duration: 3000
             });
+
+            console.log(" Updated Supplier Details : ",  updatedSupplier);
+
             this.location.back();
           },
           error: () => {
