@@ -12,12 +12,17 @@ import { SupplierViewComponent } from './components/supplier/supplier-view/suppl
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { RegisterComponent } from './components/register/register.component';
+import { ProfileComponent } from './components/profile/profile.component';
+
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard, RoleGuard], data:{ roles: ['supplier']}},
+  
   {
     path: 'supplier',
     children: [

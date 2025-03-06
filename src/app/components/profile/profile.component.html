@@ -1,0 +1,16 @@
+
+<div class="profile-container">
+    <mat-card *ngIf="currentUser" class="profile-card">
+        <mat-card-header>
+            <div mat-card-avatar class="profile-avatar">
+            </div>
+            <mat-card-title>{{ currentUser.username }}</mat-card-title>
+            <mat-card-subtitle>Supplier ID: {{ currentUser.supplierId }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p><mat-icon>tag</mat-icon> <strong>Unique ID:</strong> {{ currentUser.id }}</p>
+            <p><mat-icon>work</mat-icon> <strong>Role:</strong> {{ currentUser.role }}</p>
+            <p><mat-icon>lock</mat-icon> <strong>Password:</strong> {{ currentUser.password }}</p>
+        </mat-card-content>
+    </mat-card>
+</div>
